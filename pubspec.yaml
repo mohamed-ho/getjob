@@ -65,7 +65,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#0xff4CA6A8"
   image: assets/images/job-search.png
  
 

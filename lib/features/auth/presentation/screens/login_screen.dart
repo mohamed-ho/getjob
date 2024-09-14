@@ -36,8 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
             isloading = true;
             setState(() {});
           } else if (state is LoginUserState) {
-            isloading = false;
-            setState(() {});
             state.user.verify
                 ? {
                     Navigator.pushNamedAndRemoveUntil(
@@ -46,8 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       (route) => false,
                     ),
                   }
-                : CustomCorrectDialog(
-                    context, 'please verify your email', 'verification');
+                : {setState(() {
+                    isloading = false;
+                  });
+            CustomCorrectDialog(
+                context, 'please verify your email', 'verification');}
           } else if (state is LoadedUserState) {
             isloading = false;
             CustomCorrectDialog(
