@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:getjob/core/usecase/usecase.dart';
@@ -20,7 +21,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final LogoutUsersUsecase logoutUsersUsecase;
   final UserLocalDataSource userLocalDataSource;
   final ChangePasswordUsecase changePasswordUsecase;
-  final String _hash = 'MohamedHosnyHassanAmir1102000';
   UserBloc(
       {required this.loginUsersUsecase,
       required this.updateUsersUsecase,

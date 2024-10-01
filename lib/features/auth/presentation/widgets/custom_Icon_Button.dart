@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomIconButton extends StatelessWidget {
-  CustomIconButton(
+  const CustomIconButton(
       {super.key, required this.iconPath, required this.onpressed});
-  String iconPath;
-  Function() onpressed;
+  final String iconPath;
+  final Function() onpressed;
   @override
   Widget build(BuildContext context) {
     return InkWell(

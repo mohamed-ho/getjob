@@ -1,14 +1,12 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getjob/core/constants/colors.dart';
 import 'package:getjob/core/constants/list_of_job_types.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
-import 'package:getjob/features/auth/auth_enjection_container.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
+
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/job/domain/entities/job.dart';
 import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
@@ -58,12 +56,11 @@ class _AddJobScreenState extends State<AddJobScreen> {
           if (state is JobErrorState) {
             loading = false;
             setState(() {});
-            CustomErrorDialog(context, state.message, 'you have Error');
+            customErrorDialog(context, state.message, 'you have Error');
           } else if (state is JobLoadingState) {
             loading = true;
             setState(() {});
           } else if (state is JobLoadedState) {
-            print('you are here');
             setState(() {
               loading = false;
             });
@@ -72,8 +69,6 @@ class _AddJobScreenState extends State<AddJobScreen> {
               content: Text('adding job is success'),
               backgroundColor: Colors.green,
             ));
-          } else {
-            print('there are else state = $state.........................');
           }
         },
         child: loading
@@ -136,7 +131,7 @@ class _AddJobScreenState extends State<AddJobScreen> {
                                   fillColor: Colors.white, filled: true),
                               hint: const Text('please Choose the job type'),
                               borderRadius: BorderRadius.circular(20),
-                              dropdownColor: MyColors.SenderMessageColor,
+                              dropdownColor: MyColors.senderMessageColor,
                               value: valueOfJobType,
                               items: List<DropdownMenuItem<String>>.from(
                                   listOFJobTypes
@@ -220,7 +215,7 @@ class _AddJobScreenState extends State<AddJobScreen> {
                           onCityChanged: (city) {
                             address = '$address/$city';
                           },
-                          dropdownColor: MyColors.SenderMessageColor,
+                          dropdownColor: MyColors.senderMessageColor,
                         ),
                         AddJobTextFormField(
                           controller: salary,

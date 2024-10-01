@@ -5,6 +5,7 @@ import 'package:getjob/config/themes/app_theme.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/features/applications/presentation/bloc/application_bloc.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
+import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
 import 'package:getjob/features/chat/presentation/bloc/chat_bloc.dart';
 import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
@@ -20,7 +21,6 @@ void main() async {
   AppInjection().init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   sharedpref = await SharedPreferences.getInstance();
-  sharedpref.clear();
 
   runApp(const GetJob());
 }
@@ -42,19 +42,16 @@ class GetJob extends StatelessWidget {
           BlocProvider(create: (context) => ls<ChatBloc>()),
           BlocProvider(create: (context) => ls<JoborderBloc>()),
         ],
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.myAppThem(),
-            onGenerateRoute: MyRoute.route,
-            initialRoute:
-                // sharedpref.getBool(SharedPreferenceKeys.checkLoginKey) == null?
-                Routes.splashScreen
-            //     : sharedpref.getBool(SharedPreferenceKeys.checkLoginKey)! &&
-            //             sharedpref.getBool(isCompany)!
-            //         ? ControlCompanyScreen.id:
-            //ControlScreen.id),
-
-            ),
+        child: SafeArea(
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: AppTheme.myAppThem(),
+                onGenerateRoute: MyRoute.route,
+                initialRoute: ls<UserLocalDataSource>().checkFirstStart()
+                    ? Routes.splashScreen
+                    : ls<UserLocalDataSource>().checkLogin()
+                        ? Routes.controlScreen
+                        : Routes.loginScreen)),
       ),
     );
   }

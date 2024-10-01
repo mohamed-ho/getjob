@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+
 import 'package:getjob/core/constants/string.dart';
 import 'package:getjob/features/applications/data/models/application_model.dart';
 import 'package:getjob/features/applications/domain/entities/application.dart';
@@ -13,6 +13,7 @@ import 'package:getjob/features/jobOrder/data/datasources/job_order_application_
 import 'package:getjob/features/jobOrder/data/models/job_order_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 abstract class ApplicationRemoteDataSource {
@@ -27,7 +28,6 @@ abstract class ApplicationRemoteDataSource {
   Future<bool> youActuallySendApplication(String jobId);
   Future<File> downloadCV(String cvUrl);
   String openCv(String cvUrl);
-  Future<void> openPDF(BuildContext context, String url);
 }
 
 class ApplicationRemoteDataSourceImpl implements ApplicationRemoteDataSource {
@@ -218,12 +218,6 @@ class ApplicationRemoteDataSourceImpl implements ApplicationRemoteDataSource {
     } catch (e) {
       rethrow;
     }
-  }
-
-  @override
-  Future<void> openPDF(BuildContext context, String url) {
-    // TODO: implement openPDF
-    throw UnimplementedError();
   }
 
   @override

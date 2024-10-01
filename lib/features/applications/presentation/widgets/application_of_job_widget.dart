@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/core/constants/colors.dart';
-import 'package:getjob/features/applications/data/data_source/application_remote_data_source.dart';
+
 import 'package:getjob/features/applications/domain/entities/application.dart';
-import 'package:getjob/features/auth/auth_enjection_container.dart';
+
 import 'package:getjob/features/chat/presentation/bloc/chat_bloc.dart';
 
+// ignore: must_be_immutable
 class ApplicationOfJobWidget extends StatelessWidget {
   ApplicationOfJobWidget({
     super.key,
@@ -20,9 +19,9 @@ class ApplicationOfJobWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ChatBloc, ChatState>(
       listener: (context, state) {
-        if (state is ChatLoadingState)
+        if (state is ChatLoadingState) {
           isLoading = true;
-        else if (state is ChatLoadedState) {
+        } else if (state is ChatLoadedState) {
           isLoading = false;
           Navigator.pushNamed(context, Routes.chatScreen);
         }
@@ -94,7 +93,6 @@ class ApplicationOfJobWidget extends StatelessWidget {
                               Navigator.pushNamed(context, Routes.cvScreen,
                                   arguments: application.filePath);
                             } catch (e) {
-                              print(e);
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content:

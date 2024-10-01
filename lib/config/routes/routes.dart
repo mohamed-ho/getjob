@@ -5,23 +5,22 @@ import 'package:getjob/features/job/domain/entities/filter_job.dart';
 import 'package:getjob/features/job/domain/entities/job.dart';
 import 'package:getjob/features/job/presentation/screens/add_job_screen.dart';
 import 'package:getjob/features/job/presentation/screens/my_jobs_screen.dart';
-import 'package:getjob/features/job/presentation/screens/update_job_Screen.dart';
+import 'package:getjob/features/job/presentation/screens/update_job_screen.dart';
 import 'package:getjob/features/jobOrder/domain/entities/job_order.dart';
 import 'package:getjob/features/jobOrder/presentation/screens/job_orders_screen.dart';
 import 'package:getjob/features/jobOrder/presentation/screens/update_application_screen.dart';
-import 'package:getjob/features/worker_features/presentation/screens/apply_Screen.dart';
+import 'package:getjob/features/worker_features/presentation/screens/apply_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/control_screen.dart';
 import 'package:getjob/features/applications/presentation/screens/cv_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/home_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/profile_screen.dart';
-import 'package:getjob/features/worker_features/presentation/screens/search_Screen.dart';
-import 'package:getjob/features/worker_features/presentation/screens/search_screen_withMoreItem.dart';
+import 'package:getjob/features/worker_features/presentation/screens/search_screen.dart';
+import 'package:getjob/features/worker_features/presentation/screens/search_screen_with_more_item.dart';
 import 'package:getjob/features/auth/presentation/screens/login_screen.dart';
 import 'package:getjob/features/auth/presentation/screens/signup_screen.dart';
 import 'package:getjob/features/chat/presentation/Screens/message_person.dart';
 import 'package:getjob/features/splash/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 class Routes {
   static const String addJobScreen = 'AddJobScreen';

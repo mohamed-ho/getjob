@@ -38,7 +38,7 @@ class _ControlScreenState extends State<ControlScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              customButtonNavigationBarIcon(
+              CustomButtonNavigationBarIcon(
                   icon: pageindex == 0
                       ? const Icon(
                           Icons.home,
@@ -56,7 +56,7 @@ class _ControlScreenState extends State<ControlScreen> {
                       pageindex = 0;
                     });
                   }),
-              customButtonNavigationBarIcon(
+              CustomButtonNavigationBarIcon(
                   icon: pageindex == 1
                       ? const Icon(
                           Icons.textsms_rounded,
@@ -74,7 +74,7 @@ class _ControlScreenState extends State<ControlScreen> {
                       pageindex = 1;
                     });
                   }),
-              customButtonNavigationBarIcon(
+              CustomButtonNavigationBarIcon(
                   icon: pageindex == 2
                       ? const Icon(
                           Icons.person,
@@ -92,24 +92,6 @@ class _ControlScreenState extends State<ControlScreen> {
                       pageindex = 2;
                     });
                   }),
-              // customButtonNavigationBarIcon(
-              // discreption: pageindex == 3
-              //     ? Image.asset('assets/images/Vector 3.png')
-              //     : const Text('setting'),
-              // icon: pageindex == 3
-              //     ? const Icon(
-              //         Icons.settings,
-              //         color: MyColors.mainColor,
-              //       )
-              //     : const Icon(
-              //         Icons.settings,
-              //         color: Colors.grey,
-              //       ),
-              // onTap: () {
-              //   setState(() {
-              //     pageindex = 3;
-              //   });
-              // }),
             ],
           ),
         ));

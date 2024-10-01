@@ -2,21 +2,21 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:getjob/core/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 
-CustomErrorDialog(BuildContext context, String DialogBody, String dialogTitle) {
+customErrorDialog(BuildContext context, String dialogBody, String dialogTitle) {
   AwesomeDialog(
           context: context,
-          body: Text(DialogBody),
+          body: Text(dialogBody),
           title: dialogTitle,
           dialogType: DialogType.error)
       .show();
 }
 
-CustomCorrectDialog(
-    BuildContext context, String DialogBody, String dialogTitle) {
+customCorrectDialog(
+    BuildContext context, String dialogBody, String dialogTitle) {
   AwesomeDialog(
     context: context,
     body: Text(
-      DialogBody,
+      dialogBody,
       style: const TextStyle(fontSize: 16, color: MyColors.mainColor),
     ),
     title: dialogTitle,

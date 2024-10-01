@@ -6,7 +6,7 @@ import 'package:getjob/core/constants/list_of_job_types.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/features/job/domain/entities/filter_job.dart';
 import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
-import 'package:getjob/features/splash/widget/custum_Elevated_icon_button.dart';
+import 'package:getjob/features/splash/widget/custum_elevated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 import '../../../../core/constants/colors.dart';

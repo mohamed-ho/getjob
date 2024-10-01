@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getjob/config/routes/routes.dart';
-import 'package:getjob/core/constants/string.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/chat/data/data_source/chat_remote_data_source.dart';
 import 'package:getjob/features/chat/data/models/friend_model.dart';
@@ -100,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       );
                     });
               } else if (snapshot.hasError) {
-                return CustomErrorDialog(context,
+                return customErrorDialog(context,
                     "you have error ${snapshot.error}", "you have Error");
               } else {
                 return const Center(

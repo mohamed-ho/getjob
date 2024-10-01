@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({super.key, required this.onpressed, required this.textChild});
-  Function() onpressed;
-  String textChild;
+  const CustomButton(
+      {super.key, required this.onpressed, required this.textChild});
+  final Function() onpressed;
+  final String textChild;
 
   @override
   Widget build(BuildContext context) {

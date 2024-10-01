@@ -44,34 +44,31 @@ class MyJobsScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is JobErrorState) {
             return Center(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('you have Error ${state.message}'),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Icon(
-                        Icons.error_outline,
-                        size: 70,
-                        color: Colors.red,
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('you have Error ${state.message}'),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Icon(
+                      Icons.error_outline,
+                      size: 70,
+                      color: Colors.red,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<JobBloc>(context).add(
-                            GetJobsWithFilterEvent(
-                                filterJob: FilterJob(
-                                    companyId: UserLocalDataSourceImpl()
-                                        .getUser()
-                                        .id)));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.mainColor),
-                      child: const Text('Try Again'),
-                    )
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<JobBloc>(context).add(
+                          GetJobsWithFilterEvent(
+                              filterJob: FilterJob(
+                                  companyId:
+                                      UserLocalDataSourceImpl().getUser().id)));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: MyColors.mainColor),
+                    child: const Text('Try Again'),
+                  )
+                ],
               ),
             );
           } else if (state is JobGetedState) {

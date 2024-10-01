@@ -5,7 +5,7 @@ import 'package:getjob/features/job/domain/entities/job.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/colors.dart';
 
-ApplyWidget({required Job job, required BuildContext context}) {
+applyWidget({required Job job, required BuildContext context}) {
   int buttonIndex = 0;
   showModalBottomSheet(
       backgroundColor: MyColors.backgroundcolor,
@@ -142,30 +142,27 @@ ApplyWidget({required Job job, required BuildContext context}) {
                           padding: EdgeInsets.symmetric(vertical: 20.h),
                           child: SizedBox(
                             height: 270.h,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(job.description),
-                                  Text(
-                                    'Qualifications:',
-                                    style: TextStyle(
-                                        fontSize: 18.spMax,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Expanded(
-                                      child: ListView.builder(
-                                          itemCount:
-                                              job.jobQualifications.length,
-                                          itemBuilder: (context, index) {
-                                            return Text(
-                                              '${index + 1}- ${job.jobQualifications[index]}',
-                                              style:
-                                                  TextStyle(fontSize: 16.spMax),
-                                            );
-                                          }))
-                                ],
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(job.description),
+                                Text(
+                                  'Qualifications:',
+                                  style: TextStyle(
+                                      fontSize: 18.spMax,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Expanded(
+                                    child: ListView.builder(
+                                        itemCount: job.jobQualifications.length,
+                                        itemBuilder: (context, index) {
+                                          return Text(
+                                            '${index + 1}- ${job.jobQualifications[index]}',
+                                            style:
+                                                TextStyle(fontSize: 16.spMax),
+                                          );
+                                        }))
+                              ],
                             ),
                           ),
                         )

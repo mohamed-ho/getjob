@@ -76,21 +76,4 @@ class JobModel extends Job {
       JobStringConst.jobShareTime: sharedAt
     };
   }
-
-  @override
-  String toString() {
-    print('title:$title');
-    print('salary:$salary');
-    print('description:$description');
-    print('address:$address');
-    print('type:$type');
-    print('category:$category');
-    print('subCategory:$subCategory');
-    print('companyId:$companyId');
-    print('companyName:$companyName');
-    print('companyImage:$companyImage');
-    print('numberOfOrders:$companyName');
-    print('--------------------------------------------------------------');
-    return 'end to string method';
-  }
 }

@@ -4,10 +4,11 @@ import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
 import 'package:getjob/features/worker_features/presentation/widgets/Search_job_widget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key, required this.searchItem});
   TextEditingController searchController = TextEditingController();
-  String searchItem;
+  final String searchItem;
   @override
   Widget build(BuildContext context) {
     searchController.text = searchItem;

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
-import 'package:getjob/core/widgets/custem_Button.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_button.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/auth/domain/entities/user.dart';
 import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
@@ -44,13 +44,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             setState(() {
               isLoading = false;
             });
-            CustomCorrectDialog(
+            customCorrectDialog(
                 context, 'updated profile success', 'success process');
           } else if (state is UserErrorState) {
             setState(() {
               isLoading = false;
             });
-            CustomErrorDialog(
+            customErrorDialog(
                 context, "update profiel is fiald ", 'faild process');
           } else if (state is LoadingUserState) {
             setState(() {
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                   .circular(
                                                                       10.w),
                                                           color: MyColors
-                                                              .SenderMessageColor),
+                                                              .senderMessageColor),
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment

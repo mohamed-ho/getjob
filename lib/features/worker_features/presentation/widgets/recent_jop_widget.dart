@@ -11,7 +11,7 @@ class RecentJopWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        ApplyWidget(job: job, context: context);
+        applyWidget(job: job, context: context);
       },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 5.h),

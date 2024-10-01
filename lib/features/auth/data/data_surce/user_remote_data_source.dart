@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:getjob/core/constants/string.dart';
-import 'package:getjob/core/errors/exceptions.dart';
+import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/auth/data/models/user_model.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:path/path.dart' as path;
 
 abstract class UserRemoteDataSource {
@@ -43,6 +43,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<void> logout() async {
     try {
       await firebaseAuth.signOut();
+      await ls<UserLocalDataSource>().logout();
     } catch (e) {
       rethrow;
     }
@@ -128,38 +129,11 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<UserModel> loginWithFacebook() {
-    // TODO: implement loginWithFacebook
     throw UnimplementedError();
   }
 
   @override
-  Future<UserModel> loginWithGoogle() async {
-    // print('start .............................');
-    // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    // print('thired...........................');
-    // if (googleUser == null) {
-    //   throw const ServerExceptions('you do not chooce any google email');
-    // }
-    // print('firest .......................');
-    // // Obtain the auth details from the request
-    // final GoogleSignInAuthentication googleAuth =
-    //     await googleUser.authentication;
-    // print('second .......................');
-    // // Create a new credential
-    // final credential = GoogleAuthProvider.credential(
-    //   accessToken: googleAuth.accessToken,
-    //   idToken: googleAuth.idToken,
-    // );
-    // print('you are here ');
-    // // Once signed in, return the UserCredential
-    // final user = await FirebaseAuth.instance.signInWithCredential(credential);
-    // print('her here here');
-    // print(user.user!.displayName);
-    // print(user.user!.email);
-    // print(user.user!.photoURL);
-    // print(user.user!.uid);
-    // print(user.user!.emailVerified);
-    // TODO: implement loginWithFacebook
+  Future<UserModel> loginWithGoogle() {
     throw UnimplementedError();
   }
 }

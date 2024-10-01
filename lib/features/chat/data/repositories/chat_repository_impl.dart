@@ -36,6 +36,7 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, void>> deleteFriend(String friendId) async {
     try {
       final result = await chatRemoteDataSource.deleteFriend(friendId);
+      // ignore: void_checks
       return Right(result);
     } on ServerExceptions catch (e) {
       return Left(ServerFailure(message: e.message!));

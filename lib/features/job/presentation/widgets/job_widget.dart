@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class JobWidget extends StatelessWidget {
-  JobWidget(
+  const JobWidget(
       {super.key,
       required this.title,
       required this.salary,
@@ -9,12 +9,12 @@ class JobWidget extends StatelessWidget {
       required this.onTap,
       required this.editFunction,
       required this.deleteFunction});
-  String title;
-  double salary;
-  int numberOfOrders;
-  Function() editFunction;
-  Function() deleteFunction;
-  Function() onTap;
+  final String title;
+  final double salary;
+  final int numberOfOrders;
+  final Function() editFunction;
+  final Function() deleteFunction;
+  final Function() onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -33,26 +33,27 @@ class JobWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      child: Icon(
+                      onTap: editFunction,
+                      child: const Icon(
                         Icons.edit,
                         color: Colors.yellow,
                       ),
-                      onTap: editFunction,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: InkWell(
-                        child: Icon(
+                        onTap: deleteFunction,
+                        child: const Icon(
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        onTap: deleteFunction,
                       ),
                     )
                   ],

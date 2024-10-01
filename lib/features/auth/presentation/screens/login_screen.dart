@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
 import 'package:getjob/config/routes/routes.dart';
-import 'package:getjob/core/widgets/custem_Button.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
+import 'package:getjob/core/widgets/custom_button.dart';
 import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
-import 'package:getjob/features/auth/presentation/widgets/custom_Icon_Button.dart';
-import 'package:getjob/features/auth/presentation/widgets/auth_password_textFomField.dart';
-import 'package:getjob/features/auth/presentation/widgets/auth_textFormField.dart';
+import 'package:getjob/features/auth/presentation/widgets/custom_icon_button.dart';
+import 'package:getjob/features/auth/presentation/widgets/auth_password_textfomfield.dart';
+import 'package:getjob/features/auth/presentation/widgets/auth_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is UserErrorState) {
             isloading = false;
-            CustomErrorDialog(context, state.message, 'you have error');
+            customErrorDialog(context, state.message, 'you have error');
           } else if (state is LoadingUserState) {
             isloading = true;
             setState(() {});
@@ -44,14 +44,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       (route) => false,
                     ),
                   }
-                : {setState(() {
+                : setState(() {
                     isloading = false;
+                    customCorrectDialog(
+                        context, 'please verify your email', 'verification');
                   });
-            CustomCorrectDialog(
-                context, 'please verify your email', 'verification');}
           } else if (state is LoadedUserState) {
             isloading = false;
-            CustomCorrectDialog(
+            customCorrectDialog(
                 context,
                 'please go to you email and change you password',
                 'success process');

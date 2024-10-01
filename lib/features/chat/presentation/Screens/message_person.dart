@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:getjob/core/constants/string.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/chat/data/data_source/chat_remote_data_source.dart';
@@ -14,7 +11,7 @@ import 'package:getjob/features/chat/domian/usecases/get_message_usecase.dart';
 import 'package:getjob/features/chat/presentation/bloc/chat_bloc.dart';
 import 'package:getjob/features/chat/presentation/widgets/message_textfiled_widget.dart';
 import 'package:getjob/features/chat/presentation/widgets/message_widget.dart';
-import 'package:getjob/main.dart';
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -103,7 +100,6 @@ class MessagePerson extends StatelessWidget {
               textEditingController: controller,
               onSend: () {
                 if (newMassage.isNotEmpty) {
-                  print('yes yes');
                   FocusScope.of(context).unfocus();
                   BlocProvider.of<ChatBloc>(context).add(AddMessageEvent(
                       message: Message(
@@ -126,7 +122,6 @@ class MessagePerson extends StatelessWidget {
               onsubmit: (value) {
                 newMassage = value;
                 if (newMassage.isNotEmpty) {
-                  print('yes yes');
                   FocusScope.of(context).unfocus();
                   BlocProvider.of<ChatBloc>(context).add(AddMessageEvent(
                       message: Message(

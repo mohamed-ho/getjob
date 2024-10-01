@@ -1,9 +1,5 @@
-import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:getjob/core/constants/string.dart';
-import 'package:path/path.dart';
 
 abstract class JobOrderRemoteDataSource {
   Future<int> getJobOrders(String jobId);

@@ -1,12 +1,12 @@
+// ignore: unnecessary_import
 import 'dart:ui';
 
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getjob/core/constants/colors.dart';
 import 'package:getjob/core/constants/list_of_job_types.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/job/domain/entities/filter_job.dart';
 import 'package:getjob/features/job/domain/entities/job.dart';
@@ -71,23 +71,12 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
           if (state is JobErrorState) {
             loading = false;
             setState(() {});
-            CustomErrorDialog(context, state.message, 'you have Error');
+            customErrorDialog(context, state.message, 'you have Error');
           } else if (state is JobLoadingState) {
             loading = true;
             setState(() {});
           } else if (state is JobLoadedState) {
             setState(() {
-              @override
-              void dispose() {
-                title.dispose();
-                salary.dispose();
-                description.dispose();
-                category.dispose();
-                subCategory.dispose();
-                qualifications = [];
-                address = '';
-              }
-
               loading = false;
             });
             BlocProvider.of<JobBloc>(context).add(GetJobsWithFilterEvent(
@@ -161,7 +150,7 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
                                   fillColor: Colors.white, filled: true),
                               hint: const Text('please Choose the job type'),
                               borderRadius: BorderRadius.circular(20),
-                              dropdownColor: MyColors.SenderMessageColor,
+                              dropdownColor: MyColors.senderMessageColor,
                               value: valueOfJobType,
                               items: List<DropdownMenuItem<String>>.from(
                                   listOFJobTypes
@@ -246,7 +235,7 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
                                 onCityChanged: (city) {
                                   address = '$address/$city';
                                 },
-                                dropdownColor: MyColors.SenderMessageColor,
+                                dropdownColor: MyColors.senderMessageColor,
                               )
                             : Row(
                                 mainAxisAlignment:
@@ -347,16 +336,17 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    title.dispose();
+    salary.dispose();
+    description.dispose();
+    category.dispose();
+    subCategory.dispose();
+    qualifications = [];
+    address = '';
+  }
 }
-
-
-
- 
-
-
-
-  // final String address;
-
-
-
-

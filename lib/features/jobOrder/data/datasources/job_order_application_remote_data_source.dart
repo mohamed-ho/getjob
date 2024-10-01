@@ -2,9 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getjob/core/constants/string.dart';
 import 'package:getjob/features/applications/data/data_source/application_remote_data_source.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
-import 'package:getjob/features/job/data/Data_source/job_remote_date_source.dart';
-import 'package:getjob/features/job/data/models/job_model.dart';
-import 'package:getjob/features/job/domain/entities/filter_job.dart';
 import 'package:getjob/features/jobOrder/data/models/job_order_model.dart';
 
 abstract class JobOrderApplicationRemoteDataSource {

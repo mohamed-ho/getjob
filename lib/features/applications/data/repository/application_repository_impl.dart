@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:getjob/core/errors/exceptions.dart';
 import 'package:getjob/core/errors/failure.dart';
 import 'package:getjob/features/applications/data/data_source/application_remote_data_source.dart';
 import 'package:getjob/features/applications/data/models/application_model.dart';

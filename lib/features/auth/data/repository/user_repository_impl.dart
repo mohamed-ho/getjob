@@ -17,7 +17,7 @@ class UsersRepositoryImpl implements UsersRepository {
           await usersRemoteDataSource.login(email: email, password: password);
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -27,7 +27,7 @@ class UsersRepositoryImpl implements UsersRepository {
       final result = await usersRemoteDataSource.logout();
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -38,7 +38,7 @@ class UsersRepositoryImpl implements UsersRepository {
           await usersRemoteDataSource.signUp(UserModel.fromUsers(user));
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -49,7 +49,7 @@ class UsersRepositoryImpl implements UsersRepository {
           await usersRemoteDataSource.updateUser(UserModel.fromUsers(user));
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -59,7 +59,7 @@ class UsersRepositoryImpl implements UsersRepository {
       final result = await usersRemoteDataSource.loginWithFacebook();
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -69,7 +69,7 @@ class UsersRepositoryImpl implements UsersRepository {
       final result = await usersRemoteDataSource.loginWithGoogle();
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
 
@@ -79,7 +79,12 @@ class UsersRepositoryImpl implements UsersRepository {
       final result = await usersRemoteDataSource.changePassword(email);
       return Right(result);
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
     }
   }
+}
+
+_getFirebaseMessage(String message) {
+  int index = message.indexOf(']');
+  return message.substring(index + 1);
 }

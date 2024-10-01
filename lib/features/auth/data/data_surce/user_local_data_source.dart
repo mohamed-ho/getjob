@@ -12,6 +12,9 @@ abstract class UserLocalDataSource {
   Future<void> saveLogin();
   Future<void> deleteUser();
   Future<void> deleteLogin();
+  Future<bool> logout();
+  Future<bool> setFirstStart();
+  bool checkFirstStart();
 }
 
 class UserLocalDataSourceImpl implements UserLocalDataSource {
@@ -38,13 +41,8 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
 
   @override
   bool checkLogin() {
-    final result =
-        sharedPreferences.getBool(SharedPreferenceKeys.checkLoginKey);
-    if (result != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return sharedPreferences.getBool(SharedPreferenceKeys.checkLoginKey) ??
+        false;
   }
 
   @override
@@ -66,5 +64,25 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     final result =
         await sharedPreferences.remove(SharedPreferenceKeys.addOrGetUserKey);
     !result ? throw CacheExcptions(message: 'the process is faild') : null;
+  }
+
+  @override
+  Future<bool> logout() async {
+    final res1 =
+        await sharedPreferences.remove(SharedPreferenceKeys.addOrGetUserKey);
+    final res2 =
+        await sharedPreferences.remove(SharedPreferenceKeys.checkLoginKey);
+    return res1 && res2;
+  }
+
+  @override
+  bool checkFirstStart() {
+    return sharedPreferences.getBool(SharedPreferenceKeys.firstStart) ?? true;
+  }
+
+  @override
+  Future<bool> setFirstStart() async {
+    return await sharedPreferences.setBool(
+        SharedPreferenceKeys.firstStart, false);
   }
 }

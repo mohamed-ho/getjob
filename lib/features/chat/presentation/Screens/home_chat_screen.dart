@@ -20,7 +20,6 @@ class HomeChatScreen extends StatelessWidget {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print('snapshot entered');
               return ListView.builder(itemBuilder: (context, index) {
                 return ListTile(
                   title: Text('title = ${snapshot.data!.docs}',

@@ -76,6 +76,7 @@ class SharedPreferenceKeys {
   static const String userverify = 'userVerify';
   static const String addOrGetUserKey = 'addOrGetUserKey';
   static const String checkLoginKey = 'isLogin';
+  static const String firstStart = 'firstStart';
 }
 
 class JobStringConst {

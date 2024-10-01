@@ -1,4 +1,4 @@
-package com.example.getjob
+package dev.mohamed.getjob
 
 import io.flutter.embedding.android.FlutterActivity
 

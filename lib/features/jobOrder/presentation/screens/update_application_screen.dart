@@ -4,10 +4,9 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/applications/domain/entities/application.dart';
 import 'package:getjob/features/applications/presentation/bloc/application_bloc.dart';
-import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +55,7 @@ class _UpdateApplicationScreenState extends State<UpdateApplicationScreen> {
           setState(() {
             isloading = false;
           });
-          CustomErrorDialog(
+          customErrorDialog(
               context, 'you have Error please try agian', 'failed process');
         } else if (state is ApplicationLoadingState) {
           setState(() {

@@ -1,7 +1,9 @@
 //responsive
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/config/routes/routes.dart';
-import 'package:getjob/features/splash/widget/custum_Elevated_icon_button.dart';
+import 'package:getjob/features/auth/auth_enjection_container.dart';
+import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
+import 'package:getjob/features/splash/widget/custum_elevated_icon_button.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -50,6 +52,7 @@ class SplashScreen extends StatelessWidget {
               child: CustomElevatedIconButton(
                 buttonText: 'Let`s Get Start',
                 onpress: () {
+                  ls<UserLocalDataSource>().setFirstStart();
                   Navigator.pushNamed(context, Routes.loginScreen);
                 },
               )),

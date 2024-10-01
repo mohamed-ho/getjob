@@ -21,7 +21,7 @@ class ApplicationsOfJobScreen extends StatelessWidget {
           ..add(GetJobApplicationsEvent(jobId: job.id)),
         builder: (context, state) {
           if (state is ApplicationErrorState) {
-            return CustomErrorDialog(
+            return customErrorDialog(
                 context, 'you have Error ${state.message}', 'you have error');
           } else if (state is ApplicationGetedState) {
             return ListView.builder(

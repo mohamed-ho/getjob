@@ -1,14 +1,11 @@
 //responsive
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
-import 'package:getjob/features/chat/data/data_source/chat_remote_data_source.dart';
-import 'package:getjob/features/chat/data/models/message_model.dart';
-import 'package:getjob/features/chat/presentation/Screens/home_chat_screen.dart';
+import 'package:getjob/features/auth/data/data_surce/user_remote_data_source.dart';
 import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
 import 'package:getjob/features/worker_features/presentation/widgets/custom_drawer_widget.dart';
 import 'package:getjob/features/worker_features/presentation/widgets/filter_widget.dart';
@@ -37,8 +34,6 @@ class HomeScreen extends StatelessWidget {
                 child: Image.asset('assets/images/Menu.png'),
                 onTap: () async {
                   _scaffoldKey.currentState?.openDrawer();
-                  // await FirebaseTest()
-                  //     .uploadFile(companyName: 'fdsf', jobTitle: 'fdsf');
                 }),
             CircleAvatar(
                 radius: 25,
@@ -48,7 +43,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
-        backgroundColor: MyColors.SenderMessageColor,
+        backgroundColor: MyColors.senderMessageColor,
         width: 300.w,
         clipBehavior: Clip.hardEdge,
         child: Column(
@@ -80,15 +75,6 @@ class HomeScreen extends StatelessWidget {
                 },
                 path: 'assets/icons/icon-history.png',
                 text: 'Applications'),
-            // CustomDrawerWidget(
-            //     onTap: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => const HomeChatScreen()));
-            //     },
-            //     path: 'assets/icons/icon-settings.png',
-            //     text: 'Notifications Settings'),
             CustomDrawerWidget(
                 onTap: () {
                   Navigator.pushNamed(context, Routes.myJobsScreen);
@@ -97,16 +83,9 @@ class HomeScreen extends StatelessWidget {
                 text: 'job offers'),
             CustomDrawerWidget(
                 onTap: () async {
-                  await ChatRemoteDataSourceImpl(
-                          firebaseFirestore: FirebaseFirestore.instance)
-                      .addMessage(MessageModel(
-                    messageId: 'dfsdf',
-                    senderAndReceiverIds: [
-                      'V8zoas76P4hK4WXToetg6MQg3sd2',
-                      'Gfs9rgTfoGhDv1n35aa4'
-                    ],
-                    messageContent: 'hi',
-                    timestamp: Timestamp.now(),
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Soon..........!'),
+                    duration: Duration(milliseconds: 200),
                   ));
                 },
                 path: 'assets/icons/icon-heart.png',
@@ -115,7 +94,8 @@ class HomeScreen extends StatelessWidget {
               height: 40.h,
             ),
             CustomDrawerWidget(
-                onTap: () async {
+                onTap: () {
+                  ls<UserRemoteDataSource>().logout();
                   Navigator.pushNamedAndRemoveUntil(
                       context, Routes.loginScreen, (route) => true);
                 },

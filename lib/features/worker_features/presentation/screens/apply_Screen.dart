@@ -4,7 +4,6 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
-import 'package:getjob/core/constants/string.dart';
 import 'package:getjob/core/widgets/custom_Error_dialog.dart';
 import 'package:getjob/features/applications/domain/entities/application.dart';
 import 'package:getjob/features/applications/presentation/bloc/application_bloc.dart';
@@ -76,9 +75,9 @@ class _ApplyScreenState extends State<ApplyScreen> {
           });
 
           if (state.message == 'Exception: you actually send an Application') {
-            CustomErrorDialog(context, state.message, 'failed process');
+            customErrorDialog(context, state.message, 'failed process');
           } else {
-            CustomErrorDialog(
+            customErrorDialog(
                 context, 'you have Error please try agian', 'failed process');
           }
         } else if (state is ApplicationLoadingState) {
@@ -349,8 +348,6 @@ class _ApplyScreenState extends State<ApplyScreen> {
                         if (globalKey.currentState!.validate()) {
                           if (address != '') {
                             if (file != null || result != null) {
-                              print(
-                                  '${UserLocalDataSourceImpl().getUser().id}------------------------------------');
                               if (UserLocalDataSourceImpl().getUser().id !=
                                   widget.job.companyId) {
                                 BlocProvider.of<ApplicationBloc>(context).add(

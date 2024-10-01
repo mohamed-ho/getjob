@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/core/constants/colors.dart';
-import 'package:getjob/core/widgets/custem_Button.dart';
-import 'package:getjob/core/widgets/custom_Error_dialog.dart';
+import 'package:getjob/core/widgets/custom_button.dart';
+import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/models/user_model.dart';
 import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
-import 'package:getjob/features/auth/presentation/widgets/custom_Icon_Button.dart';
-import 'package:getjob/features/auth/presentation/widgets/auth_password_textFomField.dart';
-import 'package:getjob/features/auth/presentation/widgets/auth_textFormField.dart';
+import 'package:getjob/features/auth/presentation/widgets/custom_icon_button.dart';
+import 'package:getjob/features/auth/presentation/widgets/auth_password_textfomfield.dart';
+import 'package:getjob/features/auth/presentation/widgets/auth_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -42,7 +42,7 @@ class _SignUPScreenState extends State<SignUPScreen> {
             if (state is UserErrorState) {
               progresshud = false;
               setState(() {});
-              CustomErrorDialog(context, state.message, 'you have error');
+              customErrorDialog(context, state.message, 'you have error');
             } else if (state is SignUpUserState) {
               progresshud = false;
               setState(() {});
