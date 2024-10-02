@@ -6,10 +6,12 @@ class MessageTextFieldWidget extends StatelessWidget {
       {super.key,
       required this.onSend,
       required this.textEditingController,
-      required this.onsubmit});
+      required this.onsubmit,
+      required this.onChange});
   final TextEditingController textEditingController;
   final void Function(String)? onsubmit;
   final Function() onSend;
+  final Function(String)? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class MessageTextFieldWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             // onsubmit: onsubmit,
+            onChanged: onChange,
             onSubmitted: onsubmit,
             controller: textEditingController,
             decoration: InputDecoration(

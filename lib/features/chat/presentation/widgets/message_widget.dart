@@ -35,7 +35,7 @@ class MessageWidget extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Text(messageTime),
+              child: Text(messageTime.substring(0, messageTime.length - 10)),
             )
           ]),
         ),

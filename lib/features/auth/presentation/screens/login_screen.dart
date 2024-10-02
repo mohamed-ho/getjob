@@ -192,14 +192,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           CustomIconButton(
                             iconPath: 'assets/images/Google.png',
-                            onpressed: () {},
+                            onpressed: () {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Soon......'),
+                                duration: Duration(microseconds: 200),
+                              ));
+                            },
                           ),
                           SizedBox(
                             width: .05.sw,
                           ),
                           CustomIconButton(
                               iconPath: 'assets/images/Facebook.png',
-                              onpressed: () {})
+                              onpressed: () {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Soon......'),
+                                  duration: Duration(microseconds: 200),
+                                ));
+                              })
                         ],
                       ),
                       Padding(

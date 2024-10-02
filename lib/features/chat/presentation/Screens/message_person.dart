@@ -78,9 +78,8 @@ class MessagePerson extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return MessageWidget(
                               messageContant: messages[index].messageContent,
-                              messageTime: DateTime.fromMicrosecondsSinceEpoch(
-                                      messages[index].timestamp.seconds)
-                                  .toString(),
+                              messageTime:
+                                  messages[index].timestamp.toDate().toString(),
                               isSender: ls<UserLocalDataSource>()
                                           .getUser()
                                           .id ==
@@ -119,8 +118,10 @@ class MessagePerson extends StatelessWidget {
                   ));
                 }
               },
-              onsubmit: (value) {
+              onChange: (value) {
                 newMassage = value;
+              },
+              onsubmit: (value) {
                 if (newMassage.isNotEmpty) {
                   FocusScope.of(context).unfocus();
                   BlocProvider.of<ChatBloc>(context).add(AddMessageEvent(
