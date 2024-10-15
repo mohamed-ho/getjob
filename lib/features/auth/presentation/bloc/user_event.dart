@@ -35,6 +35,8 @@ final class LogoutUserEvent extends UserEvent {}
 
 final class InitUserEvent extends UserEvent {}
 
+final class DeleteAccountEvent extends UserEvent {}
+
 final class ChangePasswordEvent extends UserEvent {
   final String email;
 

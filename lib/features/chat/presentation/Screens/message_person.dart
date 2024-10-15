@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/chat/data/data_source/chat_remote_data_source.dart';
@@ -18,8 +20,11 @@ import 'package:flutter/material.dart';
 class MessagePerson extends StatelessWidget {
   MessagePerson({super.key, required this.friend});
   FriendModel friend;
+
   TextEditingController controller = TextEditingController();
+
   String newMassage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,21 @@ class MessagePerson extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: CircleAvatar(
-                  radius: 20, backgroundImage: NetworkImage(friend.imageUrl)),
+                radius: 25.w,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(320),
+                  child: CachedNetworkImage(
+                    imageUrl: friend.imageUrl,
+                    width: 50.w,
+                    height: 50.w,
+                    fit: BoxFit.fill,
+                    errorWidget: (context, url, error) => Image.asset(
+                      'assets/icons/error.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ),
             ),
             Text(
               friend.name,

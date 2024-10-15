@@ -5,7 +5,6 @@ import 'package:getjob/core/widgets/custom_button.dart';
 import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/models/user_model.dart';
 import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
-import 'package:getjob/features/auth/presentation/widgets/custom_icon_button.dart';
 import 'package:getjob/features/auth/presentation/widgets/auth_password_textfomfield.dart';
 import 'package:getjob/features/auth/presentation/widgets/auth_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -156,65 +155,6 @@ class _SignUPScreenState extends State<SignUPScreen> {
                           }
                         },
                         textChild: 'SIGN UP'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: .04.sh),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: .08.sw,
-                          child: Divider(
-                            color: Colors.black.withOpacity(.6),
-                            thickness: .003.sw,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: .02.sw),
-                          child: Text(
-                            'Or Continue with',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black.withOpacity(.6),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: .08.sw,
-                          child: Divider(
-                            color: Colors.black.withOpacity(.6),
-                            thickness: .003.sw,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomIconButton(
-                        iconPath: 'assets/images/Google.png',
-                        onpressed: () {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text('Soon......'),
-                            duration: Duration(microseconds: 200),
-                          ));
-                        },
-                      ),
-                      SizedBox(
-                        width: .06.sw,
-                      ),
-                      CustomIconButton(
-                          iconPath: 'assets/images/Facebook.png',
-                          onpressed: () {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Soon......'),
-                              duration: Duration(microseconds: 200),
-                            ));
-                          })
-                    ],
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: .03.sh),

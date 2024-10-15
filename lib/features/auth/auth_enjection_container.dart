@@ -6,6 +6,7 @@ import 'package:getjob/features/auth/data/data_surce/user_remote_data_source.dar
 import 'package:getjob/features/auth/data/repository/user_repository_impl.dart';
 import 'package:getjob/features/auth/domain/repository/user_repository.dart';
 import 'package:getjob/features/auth/domain/usecases/change_password_usecase.dart';
+import 'package:getjob/features/auth/domain/usecases/delete_account_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/login_user_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/logout_user_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/sginup_user_usecase.dart';
@@ -22,9 +23,11 @@ class AuthEnjectionContainer {
         sginupUsersUsecase: ls(),
         logoutUsersUsecase: ls(),
         userLocalDataSource: ls(),
-        changePasswordUsecase: ls()));
+        changePasswordUsecase: ls(),
+        deleteAccountUsecase: ls()));
 
     ls.registerLazySingleton(() => LoginUsersUsecase(usersRepository: ls()));
+    ls.registerLazySingleton(() => DeleteAccountUsecase(usersRepository: ls()));
     ls.registerLazySingleton(() => UpdateUsersUsecase(usersRepository: ls()));
     ls.registerLazySingleton(() => SginupUsersUsecase(usersRepository: ls()));
     ls.registerLazySingleton(() => LogoutUsersUsecase(usersRepository: ls()));
@@ -33,7 +36,10 @@ class AuthEnjectionContainer {
     ls.registerLazySingleton<UsersRepository>(
         () => UsersRepositoryImpl(usersRemoteDataSource: ls()));
     ls.registerLazySingleton<UserRemoteDataSource>(() =>
-        UserRemoteDataSourceImpl(firebaseAuth: ls(), firebaseFirestore: ls()));
+        UserRemoteDataSourceImpl(
+            firebaseAuth: ls(),
+            firebaseFirestore: ls(),
+            firebaseStorage: ls()));
     ls.registerLazySingleton<UserLocalDataSource>(
         () => UserLocalDataSourceImpl());
     ls.registerLazySingleton(() => FirebaseAuth.instance);

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/core/widgets/custom_error_dialog.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
@@ -16,7 +18,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  bool isSearch = false;
+  bool valid = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,43 +26,9 @@ class _ChatScreenState extends State<ChatScreen> {
       padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
       child: Column(
         children: [
-          SizedBox(
-            height: 40,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back_ios)),
-                isSearch
-                    ? Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              hintText: 'Search'),
-                        ),
-                      )
-                    : const Text(
-                        'Message',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isSearch = !isSearch;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                      size: 30,
-                    )),
-              ],
-            ),
+          const Text(
+            'Message',
+            style: TextStyle(fontSize: 20),
           ),
           Expanded(
               child: StreamBuilder(
@@ -91,8 +59,22 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         child: ListTile(
                           leading: CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(friends[index].imageUrl)),
+                            radius: 25.w,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(320),
+                              child: CachedNetworkImage(
+                                imageUrl: friends[index].imageUrl,
+                                width: 50.w,
+                                height: 50.w,
+                                fit: BoxFit.fill,
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  'assets/icons/error.png',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
                           title: Text(friends[index].name),
                           subtitle: const Text('start you chat'),
                         ),
@@ -111,5 +93,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
     ));
+  }
+}
+
+ImageProvider HandleImageError(String url) {
+  try {
+    return CachedNetworkImageProvider(url);
+  } catch (e) {
+    return const AssetImage('assets/icons/error.png');
   }
 }

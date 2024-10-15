@@ -13,6 +13,8 @@ import 'package:getjob/features/worker_features/presentation/screens/apply_scree
 import 'package:getjob/features/worker_features/presentation/screens/control_screen.dart';
 import 'package:getjob/features/applications/presentation/screens/cv_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/home_screen.dart';
+import 'package:getjob/features/worker_features/presentation/screens/more_populare_job_screen.dart';
+import 'package:getjob/features/worker_features/presentation/screens/more_recent_jobs_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/profile_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/search_screen.dart';
 import 'package:getjob/features/worker_features/presentation/screens/search_screen_with_more_item.dart';
@@ -42,6 +44,8 @@ class Routes {
   static const String updateApplicationScreen = 'updateApplicationScreen';
   static const String cvScreen = 'cvScreen';
   static const String chatScreen = 'chatScreen';
+  static const String morePopulareJobScreen = 'morePopulareJobScreen';
+  static const String moreRecentJobScreen = 'moreRecentJobScreen';
 }
 
 class MyRoute {
@@ -55,6 +59,12 @@ class MyRoute {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case Routes.loginScreen:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
+      case Routes.morePopulareJobScreen:
+        return MaterialPageRoute(
+            builder: (context) => const MorePopulareJobScreen());
+      case Routes.moreRecentJobScreen:
+        return MaterialPageRoute(
+            builder: (context) => const MoreRecentJobsScreen());
       case Routes.signUpScreen:
         return MaterialPageRoute(builder: (context) => const SignUPScreen());
       case Routes.profileScreen:

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:getjob/core/errors/exceptions.dart';
 import 'package:getjob/core/errors/failure.dart';
 import 'package:getjob/features/auth/data/data_surce/user_remote_data_source.dart';
 import 'package:getjob/features/auth/data/models/user_model.dart';
@@ -54,32 +55,22 @@ class UsersRepositoryImpl implements UsersRepository {
   }
 
   @override
-  Future<Either<Failure, Users>> loginWithFacebook() async {
-    try {
-      final result = await usersRemoteDataSource.loginWithFacebook();
-      return Right(result);
-    } catch (e) {
-      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Users>> loginWithGoogle() async {
-    try {
-      final result = await usersRemoteDataSource.loginWithGoogle();
-      return Right(result);
-    } catch (e) {
-      return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> changePassword(String email) async {
     try {
       final result = await usersRemoteDataSource.changePassword(email);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure(message: _getFirebaseMessage(e.toString())));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAccount() async {
+    try {
+      final response = await usersRemoteDataSource.removeAccount();
+      return Right(response);
+    } on ServerExceptions catch (e) {
+      return Left(ServerFailure(message: e.message!));
     }
   }
 }

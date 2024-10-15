@@ -6,6 +6,7 @@ import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart
 import 'package:getjob/features/auth/data/models/user_model.dart';
 import 'package:getjob/features/auth/domain/entities/user.dart';
 import 'package:getjob/features/auth/domain/usecases/change_password_usecase.dart';
+import 'package:getjob/features/auth/domain/usecases/delete_account_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/login_user_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/logout_user_usecase.dart';
 import 'package:getjob/features/auth/domain/usecases/sginup_user_usecase.dart';
@@ -21,13 +22,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final LogoutUsersUsecase logoutUsersUsecase;
   final UserLocalDataSource userLocalDataSource;
   final ChangePasswordUsecase changePasswordUsecase;
+  final DeleteAccountUsecase deleteAccountUsecase;
   UserBloc(
       {required this.loginUsersUsecase,
       required this.updateUsersUsecase,
       required this.sginupUsersUsecase,
       required this.logoutUsersUsecase,
       required this.userLocalDataSource,
-      required this.changePasswordUsecase})
+      required this.changePasswordUsecase,
+      required this.deleteAccountUsecase})
       : super(UserInitial()) {
     on<SignUpUserEvent>((event, emit) async {
       emit(LoadingUserState());
@@ -71,5 +74,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             (r) => emit(LoadedUserState()));
       },
     );
+
+    on<DeleteAccountEvent>((event, emit) async {
+      emit(LoadingUserState());
+      final result = await deleteAccountUsecase(NoParams());
+      result.fold((l) => emit(UserErrorState(message: l.message)),
+          (r) => emit(LoadedUserState()));
+    });
   }
 }

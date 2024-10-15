@@ -7,7 +7,6 @@ abstract class UsersRepository {
   Future<Either<Failure, Users>> login(String email, String password);
   Future<Either<Failure, void>> update(Users users);
   Future<Either<Failure, void>> logout();
-  Future<Either<Failure, Users>> loginWithGoogle();
-  Future<Either<Failure, Users>> loginWithFacebook();
   Future<Either<Failure, void>> changePassword(String email);
+  Future<Either<Failure, void>> deleteAccount();
 }

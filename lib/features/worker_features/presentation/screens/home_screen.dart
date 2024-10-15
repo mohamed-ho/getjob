@@ -6,6 +6,7 @@ import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/auth/data/data_surce/user_remote_data_source.dart';
+import 'package:getjob/features/auth/presentation/bloc/user_bloc.dart';
 import 'package:getjob/features/job/presentation/bloc/job_bloc.dart';
 import 'package:getjob/features/worker_features/presentation/widgets/custom_drawer_widget.dart';
 import 'package:getjob/features/worker_features/presentation/widgets/filter_widget.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: Row(
@@ -42,66 +44,148 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      drawer: Drawer(
-        backgroundColor: MyColors.senderMessageColor,
-        width: 300.w,
-        clipBehavior: Clip.hardEdge,
-        child: Column(
-          children: [
-            CircleAvatar(
-              backgroundImage:
-                  NetworkImage(UserLocalDataSourceImpl().getUser().image),
-              radius: 60.w,
+      drawer: BlocListener<UserBloc, UserState>(
+        listenWhen: (previous, current) {
+          return previous != current;
+        },
+        listener: (context, state) {
+          if (state is LoadingUserState) {
+            Navigator.pop(context);
+            showDialog(
+                barrierColor: Colors.white,
+                context: context,
+                builder: (context) => const Dialog(
+                      backgroundColor: Colors.white,
+                      child: Center(child: CircularProgressIndicator()),
+                    ));
+          } else if (state is UserErrorState) {
+            Navigator.pop(context);
+            showDialog(
+                barrierColor: Colors.white,
+                context: context,
+                builder: (context) => SimpleDialog(
+                      title: const Text('Error message'),
+                      children: [
+                        const Text('you have Error please try again'),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white),
+                          child: const Text('OK'),
+                        )
+                      ],
+                    ));
+          } else if (state is LoadedUserState) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.loginScreen, (route) => false);
+          }
+        },
+        child: Drawer(
+          backgroundColor: MyColors.senderMessageColor,
+          width: 300.w,
+          clipBehavior: Clip.hardEdge,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(UserLocalDataSourceImpl().getUser().image),
+                  radius: 60.w,
+                ),
+                Text(
+                  UserLocalDataSourceImpl().getUser().name,
+                  style: TextStyle(fontSize: 22.spMax),
+                ),
+                Text(UserLocalDataSourceImpl().getUser().email),
+                SizedBox(
+                  height: 20.h,
+                ),
+                CustomDrawerWidget(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.profileScreen);
+                    },
+                    path: 'assets/icons/icon-user.png',
+                    text: 'Edit Profile'),
+                CustomDrawerWidget(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.jobOrederScreen);
+                    },
+                    path: 'assets/icons/icon-history.png',
+                    text: 'Applications'),
+                CustomDrawerWidget(
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.myJobsScreen);
+                    },
+                    path: 'assets/icons/addJob.png',
+                    text: 'job offers'),
+                CustomDrawerWidget(
+                    onTap: () {
+                      ls<UserRemoteDataSource>().logout();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.loginScreen, (route) => true);
+                    },
+                    path: 'assets/icons/icon-logout.png',
+                    text: 'Logout'),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Divider(),
+                CustomDrawerWidget(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => SimpleDialog(
+                                title: const Text(
+                                  'Warning message',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                        'you sure you want to delete you account'),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.w, vertical: 10.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            BlocProvider.of<UserBloc>(context)
+                                                .add(DeleteAccountEvent());
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.green,
+                                              foregroundColor: Colors.white),
+                                          child: const Text('Yes'),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red,
+                                              foregroundColor: Colors.white),
+                                          child: const Text('No'),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ));
+                    },
+                    path: 'assets/icons/delete.png',
+                    text: 'Delete Account'),
+              ],
             ),
-            Text(
-              UserLocalDataSourceImpl().getUser().name,
-              style: TextStyle(fontSize: 22.spMax),
-            ),
-            Text(UserLocalDataSourceImpl().getUser().email),
-            SizedBox(
-              height: 20.h,
-            ),
-            CustomDrawerWidget(
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.profileScreen);
-                  // FirebaseNewDataSource fire = FirebaseNewDataSource();
-                  // final result = fire.getUserProfile();
-                },
-                path: 'assets/icons/icon-user.png',
-                text: 'Edit Profile'),
-            CustomDrawerWidget(
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.jobOrederScreen);
-                },
-                path: 'assets/icons/icon-history.png',
-                text: 'Applications'),
-            CustomDrawerWidget(
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.myJobsScreen);
-                },
-                path: 'assets/icons/addJob.png',
-                text: 'job offers'),
-            CustomDrawerWidget(
-                onTap: () async {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Soon..........!'),
-                    duration: Duration(milliseconds: 200),
-                  ));
-                },
-                path: 'assets/icons/icon-heart.png',
-                text: 'Share App'),
-            SizedBox(
-              height: 40.h,
-            ),
-            CustomDrawerWidget(
-                onTap: () {
-                  ls<UserRemoteDataSource>().logout();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, Routes.loginScreen, (route) => true);
-                },
-                path: 'assets/icons/icon-logout.png',
-                text: 'Logout'),
-          ],
+          ),
         ),
       ),
       body: RefreshIndicator(
@@ -132,8 +216,10 @@ class HomeScreen extends StatelessWidget {
                                   width: .7.sw,
                                   child: SearchField(
                                     onTapOutside: (value) {
-                                      FocusScope.of(context).unfocus();
+                                      FocusManager.instance.primaryFocus!
+                                          .unfocus();
                                     },
+                                    onScroll: (p0, p1) {},
                                     maxSuggestionsInViewPort: 6,
                                     searchStyle: TextStyle(fontSize: 18.spMax),
                                     suggestionStyle: TextStyle(
@@ -219,7 +305,12 @@ class HomeScreen extends StatelessWidget {
                         'Popular Job',
                         style: TextStyle(fontSize: 20.spMax),
                       ),
-                      const Text('show All'),
+                      InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, Routes.morePopulareJobScreen);
+                          },
+                          child: const Text('show All')),
                     ],
                   ),
                 ),
@@ -271,9 +362,13 @@ class HomeScreen extends StatelessWidget {
                         'Recent Post',
                         style: TextStyle(fontSize: 16.spMax),
                       ),
-                      Text(
-                        'Show All',
-                        style: TextStyle(fontSize: 12.spMax),
+                      InkWell(
+                        onTap: () => Navigator.pushNamed(
+                            context, Routes.moreRecentJobScreen),
+                        child: Text(
+                          'Show All',
+                          style: TextStyle(fontSize: 12.spMax),
+                        ),
                       ),
                     ],
                   ),

@@ -18,11 +18,6 @@ class MessageTextFieldWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Row(children: [
-        const CircleAvatar(
-          radius: 30,
-          backgroundColor: MyColors.mainColor,
-          child: Icon(Icons.add),
-        ),
         Expanded(
             child: Padding(
           padding: const EdgeInsets.all(8.0),
