@@ -221,9 +221,7 @@ filterWidget(context) {
                         type = value.item.toString();
                         FocusManager.instance.primaryFocus!.unfocus();
                       },
-                      onTap: () {
-                        FocusManager.instance.primaryFocus!.unfocus();
-                      },
+                    
                       suggestions: listOFJobTypes
                           .map((e) => SearchFieldListItem(e, item: e))
                           .toList(),

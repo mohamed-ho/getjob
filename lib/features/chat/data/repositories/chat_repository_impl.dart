@@ -54,8 +54,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMessage(
-      String friendId) async* {
+  Stream<List<Map<String, dynamic>>> getMessage(String friendId) async* {
     try {
       yield* chatRemoteDataSource.getMessages(friendId);
     } catch (e) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getjob/config/routes/routes.dart';
 import 'package:getjob/core/constants/colors.dart';
 
@@ -38,48 +39,45 @@ class ApplicationOfJobWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          application.applicationOwnerImage,
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(width: 15.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              application.applicationOwnerImage,
-                              width: 80,
-                              height: 80,
-                              fit: BoxFit.fill,
+                          Text(
+                            '${application.firstName} ${application.lastName}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w400),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          Text(
+                            application.address,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: 16,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${application.firstName} ${application.lastName}',
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  application.email,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  application.email,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                          Text(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            application.email,
+                            style: const TextStyle(
+                              fontSize: 12,
                             ),
-                          )
+                          ),
                         ],
-                      ),
-                      const Icon(Icons.more_vert)
+                      )
                     ],
                   ),
                   Padding(

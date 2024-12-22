@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getjob/core/constants/string.dart';
+import 'package:getjob/features/auth/auth_enjection_container.dart';
 import 'package:getjob/features/auth/data/data_surce/user_local_data_source.dart';
 import 'package:getjob/features/chat/data/models/friend_model.dart';
 import 'package:getjob/features/chat/data/models/message_model.dart';
@@ -7,7 +8,7 @@ import 'package:getjob/features/chat/data/models/message_model.dart';
 abstract class ChatRemoteDataSource {
   Future<void> addMessage(MessageModel message);
   Future<void> deleteMessage(String messageId);
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(String friendId);
+  Stream<List<Map<String, dynamic>>> getMessages(String friendId);
   Future<void> addFriend(String friendId);
   deleteFriend(String friendId);
   Future<FriendModel> getFriendData(String friendId);
@@ -89,15 +90,34 @@ class ChatRemoteDataSourceImpl extends ChatRemoteDataSource {
   }
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMessages(
-      String friendId) async* {
-    yield* firebaseFirestore
+  Stream<List<Map<String, dynamic>>> getMessages(String friendId) async* {
+    final userId = ls<UserLocalDataSource>().getUser().id;
+
+    // Query Firestore to get messages where the senderAndReceiver array contains the current user ID
+    final messageStream = firebaseFirestore
         .collection(FireBaseStringConst.messagesCollectionName)
         .orderBy(MessagesStringConst.messageSendTime, descending: true)
-        .where(MessagesStringConst.senderAndReceiver, arrayContainsAny: [
-      UserLocalDataSourceImpl().getUser().id,
-      friendId
-    ]).snapshots();
+        .where(
+          MessagesStringConst.senderAndReceiver,
+          arrayContains: userId,
+        )
+        .snapshots();
+
+    // Filter the results to ensure they include both the userId and friendId
+    yield* messageStream.map((snapshot) {
+      return snapshot.docs
+          .where((doc) {
+            final data = doc.data();
+            final senderAndReceiver =
+                List<String>.from(data[MessagesStringConst.senderAndReceiver]);
+
+            // Check if the array contains both userId and friendId
+            return senderAndReceiver.contains(friendId) &&
+                senderAndReceiver.contains(userId);
+          })
+          .map((doc) => doc.data())
+          .toList();
+    });
   }
 
   @override

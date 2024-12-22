@@ -256,11 +256,11 @@ class _ApplyScreenState extends State<ApplyScreen> {
                     child: Padding(
                       padding: EdgeInsets.all(8.0.w),
                       child: SelectState(onCountryChanged: (country) {
-                        address = '$country/';
+                        address = country;
                       }, onStateChanged: (state) {
-                        address = '$address$state/';
+                        address = '$address/$state';
                       }, onCityChanged: (city) {
-                        address = address + city;
+                        address = '$address/$city';
                       }),
                     ),
                   ),

@@ -88,9 +88,11 @@ class MessagePerson extends StatelessWidget {
                         child: Text('you don\'t have message'),
                       );
                     }
+
                     List<MessageModel> messages = List<MessageModel>.from(
-                        snapshot.data!.docs
+                        snapshot.data!
                             .map((e) => MessageModel.fromDocumentSnapshot(e)));
+
                     return ListView.builder(
                         reverse: true,
                         itemCount: messages.length,

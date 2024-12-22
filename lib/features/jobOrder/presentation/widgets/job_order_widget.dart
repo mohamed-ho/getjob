@@ -33,8 +33,10 @@ class JobOrderWidget extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                SizedBox(
+                  width: 15.w,
+                ),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,18 +44,24 @@ class JobOrderWidget extends StatelessWidget {
                         '${jobOrder.companyName} ',
                         style: TextStyle(
                             fontSize: 12.sp, fontWeight: FontWeight.w400),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         jobOrder.jobTitle,
                         style: TextStyle(
                           fontSize: 18.sp,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         jobOrder.address,
                         style: TextStyle(
                           fontSize: 12.sp,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         '\$ ${jobOrder.salary} Monthly',

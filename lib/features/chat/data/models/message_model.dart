@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:getjob/core/constants/string.dart';
 import 'package:getjob/features/chat/domian/entities/message.dart';
 
@@ -18,10 +17,9 @@ class MessageModel extends Message {
     );
   }
 
-  factory MessageModel.fromDocumentSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> message) {
+  factory MessageModel.fromDocumentSnapshot(Map<String, dynamic> message) {
     return MessageModel(
-      messageId: message.id,
+      messageId: 'Message id',
       senderAndReceiverIds: message[MessagesStringConst.senderAndReceiver],
       messageContent: message[MessagesStringConst.messageContent],
       timestamp: message[MessagesStringConst.messageSendTime],
